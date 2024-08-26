@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kaspi_pdf_reader/core/screens/pdf_download_main_screen_controller.dart';
 import 'package:kaspi_pdf_reader/core/widgets/app_primary_button.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfDownloadMainScreen extends StatefulWidget {
   const PdfDownloadMainScreen({super.key});
@@ -44,9 +43,32 @@ class _PdfDownloadMainScreenState extends State<PdfDownloadMainScreen> {
           if (controller.isLoading)
             const SizedBox()
           else
-            Padding(
-                padding: const EdgeInsets.all(4),
-                child: Text(controller.parsedData.toString() ?? ''))
+            Expanded(
+              child: Column(
+              
+                children: [
+                  Text('Сумма дохода ${controller.getPlusSum()}'),
+                  Text('Сумма расхода ${controller.getMinusSum()}'),
+              
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: controller.bankOperations!.length,
+                      itemBuilder: (context, index) {
+                        final operation = controller.bankOperations![index];
+                        return ColoredBox(
+                          color: operation!.isPlus ? Colors.red : Colors.blue,
+                          child: ListTile(
+                            style: ListTileStyle.list,
+                            title: Text(operation.typeOperation),
+                            subtitle: Text((operation.summ).toString()),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            )
         ]);
       }),
     );
