@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:kaspi_pdf_reader/data/models/bank_operation_category_link_model/bank_operation_category_link_model.dart';
 
 part 'drift_datebase.g.dart';
 
@@ -7,22 +8,34 @@ class BankOperationDriftModel extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get typeOperation => text().withLength(min: 6, max: 100)();
   TextColumn get purpose => text()();
+  IntColumn get categoryID => integer().nullable()();
+  TextColumn get categoryName => text().nullable()();
   TextColumn get date => text()();
   TextColumn get updatedAt => text()();
   RealColumn get summ => real()();
   BoolColumn get isExpenditure => boolean()();
-  TextColumn get categoryName => text().nullable()();
 }
 
 class BankOperationCategoryModelDriftModel extends Table {
   IntColumn get id => integer().autoIncrement()();
+  IntColumn get iconID => integer()();
   TextColumn get title => text()();
   RealColumn get summ => real()();
   DateTimeColumn get date => dateTime()();
 }
 
-@DriftDatabase(
-    tables: [BankOperationDriftModel, BankOperationCategoryModelDriftModel])
+class BankOperationCategoryLink extends Table {
+  IntColumn get bankOperationId => integer().customConstraint(
+      'REFERENCES bank_operation_drift_model(id)')(); // Убираем дополнительные ограничения
+  IntColumn get categoryId => integer().customConstraint(
+      'REFERENCES bank_operation_category_model_drift_model(id)')(); // Убираем дополнительные ограничения
+}
+
+@DriftDatabase(tables: [
+  BankOperationDriftModel,
+  BankOperationCategoryModelDriftModel,
+  BankOperationCategoryLink
+])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
@@ -45,8 +58,11 @@ class BankOperationDriftModelRepository {
     final result = await query.getSingleOrNull();
     return result;
   }
-    Future<List<BankOperationDriftModelData>?> getAllBankOperationDriftModel() async {
-    final result = await appDatabase.select(appDatabase.bankOperationDriftModel).get();
+
+  Future<List<BankOperationDriftModelData>?>
+      getAllBankOperationDriftModel() async {
+    final result =
+        await appDatabase.select(appDatabase.bankOperationDriftModel).get();
 
     return result;
   }
@@ -70,11 +86,12 @@ class BankOperationCategoryModelDriftModelRepository {
     return result;
   }
 
-  Future<void> setBankOperationGroupsDriftModel(
+  Future<int> setBankOperationGroupsDriftModel(
       BankOperationCategoryModelDriftModelCompanion model) async {
-    appDatabase
+    final id = appDatabase
         .into(appDatabase.bankOperationCategoryModelDriftModel)
         .insert(model);
+    return id;
   }
 
   Future<List<BankOperationCategoryModelDriftModelData>>
@@ -83,5 +100,34 @@ class BankOperationCategoryModelDriftModelRepository {
         .select(appDatabase.bankOperationCategoryModelDriftModel)
         .get();
     return list;
+  }
+}
+
+class BankOperationCategoryLinkRepository  {
+
+  final AppDatabase appDatabase;
+
+  BankOperationCategoryLinkRepository({required this.appDatabase});
+  Future<void> linkOperationToCategory({
+    required int bankOperationId,
+    required int categoryId,
+  }) async {
+    await appDatabase. into(appDatabase.bankOperationCategoryLink).insert(
+      BankOperationCategoryLinkCompanion(
+        bankOperationId: Value(bankOperationId),
+        categoryId: Value(categoryId),
+      ),
+    );
+  }
+
+  Future<List<BankOperationCategoryLinkModel>>
+      getBankOperationsWhereHaveLinkToCategory({
+    required int categoryId,
+  }) async {
+    final data = await appDatabase.select(appDatabase.bankOperationCategoryLink).get()
+      ..where((e) => e.categoryId == categoryId);
+    return data
+        .map((e) => BankOperationCategoryLinkModel.fromDriftModel(e))
+        .toList();
   }
 }

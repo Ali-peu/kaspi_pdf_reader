@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kaspi_pdf_reader/core/global_values/global_icons_map.dart';
 import 'package:kaspi_pdf_reader/core/screens/pdf_download_screen/pdf_download_screen.dart';
 import 'package:kaspi_pdf_reader/core/screens/pdf_download_screen/pdf_download_controller.dart';
 import 'package:kaspi_pdf_reader/core/screens/sorting_operations_screen/sorting_operations_screen.dart';
+import 'package:kaspi_pdf_reader/core/widgets/app_primary_button.dart';
 import 'package:provider/provider.dart';
 
 class AppNavigation extends StatefulWidget {
@@ -34,43 +36,76 @@ class _AppNavigationState extends State<AppNavigation> {
     } else {
       await showModalBottomSheet(
           context: context,
+          isScrollControlled: true,
           builder: (context) {
-            final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-            return Padding(
-              padding: EdgeInsets.fromLTRB(12, 12, 12, keyboardHeight),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Выберите название категории'),
-                  TextField(
-                    controller: controller.controller,
-                    autofocus: true,
-                    onSubmitted: (value) {
-                      final data = controller.checkExpenditureNameInMap();
-                      if (data) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Уже есть')));
-                      } else {
-                        controller.createNewtypeOfGroupsForExpenditure();
-                        Navigator.pop(context);
-                      }
-                    },
-                    onEditingComplete: () {
-                      final data = controller.checkExpenditureNameInMap();
-                      if (data) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text('Уже есть'),
-                          behavior: SnackBarBehavior.floating,
-                          margin: EdgeInsets.only(bottom: 100.0),
-                        ));
-                      }
-                    },
-                  )
-                ],
-              ),
-            );
+            return StatefulBuilder(builder: (context, setStater) {
+              return Builder(builder: (context) {
+                final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(12, 12, 12, keyboardHeight),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Выберите название категории'),
+                        TextField(
+                          controller: controller.controller,
+                          autofocus: true,
+                          onSubmitted: (value) {
+                            // final data = controller.checkExpenditureNameInMap();
+                            // if (data) {
+                            //   ScaffoldMessenger.of(context).showSnackBar(
+                            //       const SnackBar(content: Text('Уже есть')));
+                            // } else {
+                            //   controller.createNewtypeOfGroupsForExpenditure();
+                            //   Navigator.pop(context);
+                            // }
+                          },
+                          onEditingComplete: () {
+                            // final data = controller.checkExpenditureNameInMap();
+                            // if (data) {
+                            //   ScaffoldMessenger.of(context)
+                            //       .showSnackBar(const SnackBar(
+                            //     content: Text('Уже есть'),
+                            //     behavior: SnackBarBehavior.floating,
+                            //     margin: EdgeInsets.only(bottom: 100.0),
+                            //   ));
+                            // }
+                          },
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.25,
+                          child: Wrap(
+                            children: iconsMap.entries
+                                .map((e) => ColoredBox(
+                                      color:
+                                          e.key == controller.pickedIconDataID
+                                              ? Colors.grey.shade400
+                                              : Colors.transparent,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            controller
+                                                .setPickedIconDataID(e.key);
+                                            setStater(() {});
+                                          },
+                                          icon: Icon(e.value)),
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                        AppPrimaryButton(
+                            buttonText: 'Сохранить',
+                            onPressed: () {
+                              controller.saveForCategoryType();
+                              Navigator.pop(context);
+                            })
+                      ],
+                    ),
+                  ),
+                );
+              });
+            });
           });
     }
   }

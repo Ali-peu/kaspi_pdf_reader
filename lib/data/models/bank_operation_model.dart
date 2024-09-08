@@ -8,6 +8,7 @@ class BankOperationModel {
   final String purpose;
   final bool isPlus;
   final String? categoryName;
+  final int? categoryID;
   final int id;
 
   BankOperationModel(
@@ -15,6 +16,7 @@ class BankOperationModel {
       required this.summ,
       required this.id,
       required this.isPlus,
+      this.categoryID,
       this.categoryName,
       required this.typeOperation,
       required this.purpose});
@@ -26,6 +28,7 @@ class BankOperationModel {
         categoryName: categoryName,
         date: date ?? this.date,
         isPlus: isPlus,
+        categoryID: categoryID,
         summ: summ ?? this.summ,
         typeOperation: typeOperation ?? this.typeOperation,
         purpose: purpose ?? this.purpose);
@@ -40,12 +43,15 @@ class BankOperationModel {
     final typeOperation = model.typeOperation;
     final categoryName = model.categoryName;
     final id = model.id;
+    final categoryID = model.categoryID;
+
     return BankOperationModel(
         date: date,
         summ: summ,
         id: id,
         categoryName: categoryName,
         isPlus: isPlus,
+        categoryID: categoryID,
         typeOperation: typeOperation,
         purpose: purpose);
   }
@@ -58,6 +64,7 @@ class BankOperationModel {
         typeOperation: Value<String>(typeOperation),
         summ: Value<double>(summ),
         updatedAt: Value<String>(date),
+        categoryID: Value<int?>(categoryID),
         purpose: Value<String>(purpose));
   }
 }

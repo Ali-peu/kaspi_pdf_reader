@@ -26,6 +26,10 @@ class App extends StatelessWidget {
             ChangeNotifierProvider<PdfDownloadController>(
                 create: (_) => PdfDownloadController(
                     bankOperationRepo: BankOperationRepo(),
+                    operationGroupsRepo: OperationGroupsRepo(
+                        bankOperationCategoryModelDriftModelRepository:
+                            BankOperationCategoryModelDriftModelRepository(
+                                appDatabase: driftDatebase)),
                     pdfCleanerRepo: SCVCleanerRepo())
                   ..getDataFromDrift()),
             ChangeNotifierProvider<SortingOperationsController>(
@@ -33,7 +37,7 @@ class App extends StatelessWidget {
                     operationGroupsRepo: OperationGroupsRepo(
                         bankOperationCategoryModelDriftModelRepository:
                             BankOperationCategoryModelDriftModelRepository(
-                                appDatabase: driftDatebase)))),
+                                appDatabase: driftDatebase)))..getGroupsFromDrift()),
           ],
           child: const AppNavigation(),
         ));

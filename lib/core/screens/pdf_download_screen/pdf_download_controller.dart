@@ -7,10 +7,13 @@ import 'package:fast_csv/fast_csv_ex.dart' as fast_csv_ex;
 import 'package:kaspi_pdf_reader/data/models/bank_operation_model.dart';
 import 'package:kaspi_pdf_reader/data/repo/bank_operation_repo.dart';
 import 'package:kaspi_pdf_reader/data/repo/document_cleaner_repositoryes/document_cleaner_repo.dart';
+import 'package:kaspi_pdf_reader/data/repo/operation_groups_repo.dart';
 
 class PdfDownloadController extends ChangeNotifier {
   bool isLoading = true;
   bool showCheckBox = false;
+
+  int pickedIconDataID = 0;
 
   UniqueKey listViewKey = UniqueKey();
 
@@ -22,9 +25,12 @@ class PdfDownloadController extends ChangeNotifier {
 
   final BankOperationRepo bankOperationRepo;
   final DocumentCleanerRepo pdfCleanerRepo;
+  final OperationGroupsRepo operationGroupsRepo;
 
   PdfDownloadController(
-      {required this.bankOperationRepo, required this.pdfCleanerRepo});
+      {required this.operationGroupsRepo,
+      required this.bankOperationRepo,
+      required this.pdfCleanerRepo});
 
   Future<void> openPdfFromPath() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -54,6 +60,31 @@ class PdfDownloadController extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> saveForCategoryType() async {
+    final checkIsThisGroupTypeExisted =
+        await operationGroupsRepo.checkIsThisGroupExisted(controller.text);
+    if (checkIsThisGroupTypeExisted) {
+    } else {
+      final summ = pickedGroupedDataExpenditure.values
+          .expand((list) => list)
+          .fold(0.0, (previousValue, element) => previousValue + element.summ);
+      final newCategoryId = await operationGroupsRepo.setBankOperationModel(
+          groupName: controller.text, iconID: pickedIconDataID, summ: summ);
+      saveManyToManyKeysInOperationAndGroups(newCategoryId);
+    }
+  }
+
+  void saveManyToManyKeysInOperationAndGroups(int newCategoryId) async {
+    for (var entry in pickedGroupedDataExpenditure.entries) {
+      for (var operation in entry.value) {
+        await operationGroupsRepo.linkOperationToCategory(
+          bankOperationId: operation.id,
+          categoryId: newCategoryId,
+        );
+      }
+    }
+  }
+
   bool checkExpenditureNameInMap() {
     log(groupedDataExpenditure.keys.toList().toString());
     return (groupedDataExpenditure.keys
@@ -62,6 +93,11 @@ class PdfDownloadController extends ChangeNotifier {
 
   void clearTextField() {
     controller.clear();
+    notifyListeners();
+  }
+
+  void setPickedIconDataID(int value) {
+    pickedIconDataID = value;
     notifyListeners();
   }
 
