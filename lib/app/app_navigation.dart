@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kaspi_pdf_reader/core/global_values/global_icons_map.dart';
-import 'package:kaspi_pdf_reader/core/screens/pdf_download_screen/pdf_download_screen.dart';
+import 'package:kaspi_pdf_reader/core/screens/create_payment_screen/create_payment_screen.dart';
 import 'package:kaspi_pdf_reader/core/screens/pdf_download_screen/pdf_download_controller.dart';
+import 'package:kaspi_pdf_reader/core/screens/pdf_download_screen/pdf_download_screen.dart';
 import 'package:kaspi_pdf_reader/core/screens/sorting_operations_screen/sorting_operations_screen.dart';
 import 'package:kaspi_pdf_reader/core/widgets/app_primary_button.dart';
 import 'package:provider/provider.dart';
@@ -95,7 +96,7 @@ class _AppNavigationState extends State<AppNavigation> {
                           ),
                         ),
                         AppPrimaryButton(
-                            buttonText: 'Сохранить',
+                            text: 'Сохранить',
                             onPressed: () {
                               controller.saveForCategoryType();
                               Navigator.pop(context);
@@ -124,18 +125,15 @@ class _AppNavigationState extends State<AppNavigation> {
       body: getCurrentBody(),
       floatingActionButton: Consumer<PdfDownloadController>(
           builder: (context, controller, child) {
-        return IgnorePointer(
-          ignoring: !controller.showCheckBox,
-          child: Visibility(
-            visible: controller.showCheckBox,
-            child: FloatingActionButton(
-              onPressed: () async {
-                controller.clearTextField();
-                await onPressedAddData(controller, context);
-              },
-              child: const Icon(Icons.add),
-            ),
-          ),
+        return FloatingActionButton(
+          onPressed: () async {
+            await Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const CreatePaymentScreen();
+            }));
+            // controller.clearTextField();
+            // await onPressedAddData(controller, context);
+          },
+          child: const Icon(Icons.add),
         );
       }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

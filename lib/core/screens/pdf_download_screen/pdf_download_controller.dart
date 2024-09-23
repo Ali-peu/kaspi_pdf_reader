@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:fast_csv/fast_csv_ex.dart' as fast_csv_ex;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fast_csv/fast_csv_ex.dart' as fast_csv_ex;
 import 'package:kaspi_pdf_reader/data/models/bank_operation_model.dart';
 import 'package:kaspi_pdf_reader/data/repo/bank_operation_repo.dart';
 import 'package:kaspi_pdf_reader/data/repo/document_cleaner_repositoryes/document_cleaner_repo.dart';
@@ -24,6 +24,7 @@ class PdfDownloadController extends ChangeNotifier {
   Map<String, List<BankOperationModel>> pickedGroupedDataExpenditure = {};
 
   final BankOperationRepo bankOperationRepo;
+  // ignore: strict_raw_type
   final DocumentCleanerRepo pdfCleanerRepo;
   final OperationGroupsRepo operationGroupsRepo;
 
@@ -33,9 +34,9 @@ class PdfDownloadController extends ChangeNotifier {
       required this.pdfCleanerRepo});
 
   Future<void> openPdfFromPath() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    final result = await FilePicker.platform.pickFiles();
     if (result != null) {
-      List<File> files = result.paths.map((path) => File(path!)).toList();
+      final files = result.paths.map((path) => File(path!)).toList();
       final doc = files.first;
       final text = await doc.readAsString();
       final data = fast_csv_ex.parse(text);

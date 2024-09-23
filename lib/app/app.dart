@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:kaspi_pdf_reader/app/app_navigation.dart';
 import 'package:kaspi_pdf_reader/core/screens/pdf_download_screen/pdf_download_controller.dart';
 import 'package:kaspi_pdf_reader/core/screens/sorting_operations_screen/sorting_operations_controller.dart';
@@ -21,6 +22,13 @@ class App extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
+        locale: const Locale('ru', 'RU'),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('ru', 'RU')],
         home: MultiProvider(
           providers: [
             ChangeNotifierProvider<PdfDownloadController>(
@@ -37,7 +45,8 @@ class App extends StatelessWidget {
                     operationGroupsRepo: OperationGroupsRepo(
                         bankOperationCategoryModelDriftModelRepository:
                             BankOperationCategoryModelDriftModelRepository(
-                                appDatabase: driftDatebase)))..getGroupsFromDrift()),
+                                appDatabase: driftDatebase)))
+                  ..getGroupsFromDrift()),
           ],
           child: const AppNavigation(),
         ));
