@@ -1,7 +1,7 @@
 import 'package:kaspi_pdf_reader/app/app_change_notifier.dart';
-import 'package:kaspi_pdf_reader/data/database/drift_datebase.dart';
-import 'package:kaspi_pdf_reader/data/database/drift_datebase_example.dart';
-import 'package:kaspi_pdf_reader/data/models/bank_operation_model.dart';
+import 'package:kaspi_pdf_reader/core/data/database/drift_datebase.dart';
+import 'package:kaspi_pdf_reader/core/data/database/drift_datebase_example.dart';
+import 'package:kaspi_pdf_reader/core/data/models/bank_operation_model.dart';
 
 class OperationDetailController extends AppChangeNotifier {
   List<BankOperationModel> bankOperationModelList = [];

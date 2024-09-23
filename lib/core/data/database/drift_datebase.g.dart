@@ -3,6 +3,495 @@
 part of 'drift_datebase.dart';
 
 // ignore_for_file: type=lint
+class $DailyExpenseDriftModelTable extends DailyExpenseDriftModel
+    with TableInfo<$DailyExpenseDriftModelTable, DailyExpenseDriftModelData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DailyExpenseDriftModelTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _amountMeta = const VerificationMeta('amount');
+  @override
+  late final GeneratedColumn<double> amount = GeneratedColumn<double>(
+      'amount', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _categoryMeta =
+      const VerificationMeta('category');
+  @override
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<DateTime> date = GeneratedColumn<DateTime>(
+      'date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 0, maxTextLength: 255),
+      type: DriftSqlType.string,
+      requiredDuringInsert: false);
+  static const VerificationMeta _paymentMethodMeta =
+      const VerificationMeta('paymentMethod');
+  @override
+  late final GeneratedColumn<String> paymentMethod = GeneratedColumn<String>(
+      'payment_method', aliasedName, true,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 0, maxTextLength: 50),
+      type: DriftSqlType.string,
+      requiredDuringInsert: false);
+  static const VerificationMeta _isRecurringMeta =
+      const VerificationMeta('isRecurring');
+  @override
+  late final GeneratedColumn<bool> isRecurring = GeneratedColumn<bool>(
+      'is_recurring', aliasedName, true,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_recurring" IN (0, 1))'));
+  static const VerificationMeta _locationMeta =
+      const VerificationMeta('location');
+  @override
+  late final GeneratedColumn<String> location = GeneratedColumn<String>(
+      'location', aliasedName, true,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 0, maxTextLength: 100),
+      type: DriftSqlType.string,
+      requiredDuringInsert: false);
+  static const VerificationMeta _currencyMeta =
+      const VerificationMeta('currency');
+  @override
+  late final GeneratedColumn<String> currency = GeneratedColumn<String>(
+      'currency', aliasedName, true,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 3, maxTextLength: 3),
+      type: DriftSqlType.string,
+      requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        amount,
+        category,
+        date,
+        notes,
+        paymentMethod,
+        isRecurring,
+        location,
+        currency
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'daily_expense_drift_model';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<DailyExpenseDriftModelData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('amount')) {
+      context.handle(_amountMeta,
+          amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
+    } else if (isInserting) {
+      context.missing(_amountMeta);
+    }
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('payment_method')) {
+      context.handle(
+          _paymentMethodMeta,
+          paymentMethod.isAcceptableOrUnknown(
+              data['payment_method']!, _paymentMethodMeta));
+    }
+    if (data.containsKey('is_recurring')) {
+      context.handle(
+          _isRecurringMeta,
+          isRecurring.isAcceptableOrUnknown(
+              data['is_recurring']!, _isRecurringMeta));
+    }
+    if (data.containsKey('location')) {
+      context.handle(_locationMeta,
+          location.isAcceptableOrUnknown(data['location']!, _locationMeta));
+    }
+    if (data.containsKey('currency')) {
+      context.handle(_currencyMeta,
+          currency.isAcceptableOrUnknown(data['currency']!, _currencyMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DailyExpenseDriftModelData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DailyExpenseDriftModelData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      amount: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}amount'])!,
+      category: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}date'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      paymentMethod: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}payment_method']),
+      isRecurring: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_recurring']),
+      location: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}location']),
+      currency: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}currency']),
+    );
+  }
+
+  @override
+  $DailyExpenseDriftModelTable createAlias(String alias) {
+    return $DailyExpenseDriftModelTable(attachedDatabase, alias);
+  }
+}
+
+class DailyExpenseDriftModelData extends DataClass
+    implements Insertable<DailyExpenseDriftModelData> {
+  final int id;
+  final double amount;
+  final String category;
+  final DateTime date;
+  final String? notes;
+  final String? paymentMethod;
+  final bool? isRecurring;
+  final String? location;
+  final String? currency;
+  const DailyExpenseDriftModelData(
+      {required this.id,
+      required this.amount,
+      required this.category,
+      required this.date,
+      this.notes,
+      this.paymentMethod,
+      this.isRecurring,
+      this.location,
+      this.currency});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['amount'] = Variable<double>(amount);
+    map['category'] = Variable<String>(category);
+    map['date'] = Variable<DateTime>(date);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    if (!nullToAbsent || paymentMethod != null) {
+      map['payment_method'] = Variable<String>(paymentMethod);
+    }
+    if (!nullToAbsent || isRecurring != null) {
+      map['is_recurring'] = Variable<bool>(isRecurring);
+    }
+    if (!nullToAbsent || location != null) {
+      map['location'] = Variable<String>(location);
+    }
+    if (!nullToAbsent || currency != null) {
+      map['currency'] = Variable<String>(currency);
+    }
+    return map;
+  }
+
+  DailyExpenseDriftModelCompanion toCompanion(bool nullToAbsent) {
+    return DailyExpenseDriftModelCompanion(
+      id: Value(id),
+      amount: Value(amount),
+      category: Value(category),
+      date: Value(date),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      paymentMethod: paymentMethod == null && nullToAbsent
+          ? const Value.absent()
+          : Value(paymentMethod),
+      isRecurring: isRecurring == null && nullToAbsent
+          ? const Value.absent()
+          : Value(isRecurring),
+      location: location == null && nullToAbsent
+          ? const Value.absent()
+          : Value(location),
+      currency: currency == null && nullToAbsent
+          ? const Value.absent()
+          : Value(currency),
+    );
+  }
+
+  factory DailyExpenseDriftModelData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DailyExpenseDriftModelData(
+      id: serializer.fromJson<int>(json['id']),
+      amount: serializer.fromJson<double>(json['amount']),
+      category: serializer.fromJson<String>(json['category']),
+      date: serializer.fromJson<DateTime>(json['date']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      paymentMethod: serializer.fromJson<String?>(json['paymentMethod']),
+      isRecurring: serializer.fromJson<bool?>(json['isRecurring']),
+      location: serializer.fromJson<String?>(json['location']),
+      currency: serializer.fromJson<String?>(json['currency']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'amount': serializer.toJson<double>(amount),
+      'category': serializer.toJson<String>(category),
+      'date': serializer.toJson<DateTime>(date),
+      'notes': serializer.toJson<String?>(notes),
+      'paymentMethod': serializer.toJson<String?>(paymentMethod),
+      'isRecurring': serializer.toJson<bool?>(isRecurring),
+      'location': serializer.toJson<String?>(location),
+      'currency': serializer.toJson<String?>(currency),
+    };
+  }
+
+  DailyExpenseDriftModelData copyWith(
+          {int? id,
+          double? amount,
+          String? category,
+          DateTime? date,
+          Value<String?> notes = const Value.absent(),
+          Value<String?> paymentMethod = const Value.absent(),
+          Value<bool?> isRecurring = const Value.absent(),
+          Value<String?> location = const Value.absent(),
+          Value<String?> currency = const Value.absent()}) =>
+      DailyExpenseDriftModelData(
+        id: id ?? this.id,
+        amount: amount ?? this.amount,
+        category: category ?? this.category,
+        date: date ?? this.date,
+        notes: notes.present ? notes.value : this.notes,
+        paymentMethod:
+            paymentMethod.present ? paymentMethod.value : this.paymentMethod,
+        isRecurring: isRecurring.present ? isRecurring.value : this.isRecurring,
+        location: location.present ? location.value : this.location,
+        currency: currency.present ? currency.value : this.currency,
+      );
+  DailyExpenseDriftModelData copyWithCompanion(
+      DailyExpenseDriftModelCompanion data) {
+    return DailyExpenseDriftModelData(
+      id: data.id.present ? data.id.value : this.id,
+      amount: data.amount.present ? data.amount.value : this.amount,
+      category: data.category.present ? data.category.value : this.category,
+      date: data.date.present ? data.date.value : this.date,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      paymentMethod: data.paymentMethod.present
+          ? data.paymentMethod.value
+          : this.paymentMethod,
+      isRecurring:
+          data.isRecurring.present ? data.isRecurring.value : this.isRecurring,
+      location: data.location.present ? data.location.value : this.location,
+      currency: data.currency.present ? data.currency.value : this.currency,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DailyExpenseDriftModelData(')
+          ..write('id: $id, ')
+          ..write('amount: $amount, ')
+          ..write('category: $category, ')
+          ..write('date: $date, ')
+          ..write('notes: $notes, ')
+          ..write('paymentMethod: $paymentMethod, ')
+          ..write('isRecurring: $isRecurring, ')
+          ..write('location: $location, ')
+          ..write('currency: $currency')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, amount, category, date, notes,
+      paymentMethod, isRecurring, location, currency);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DailyExpenseDriftModelData &&
+          other.id == this.id &&
+          other.amount == this.amount &&
+          other.category == this.category &&
+          other.date == this.date &&
+          other.notes == this.notes &&
+          other.paymentMethod == this.paymentMethod &&
+          other.isRecurring == this.isRecurring &&
+          other.location == this.location &&
+          other.currency == this.currency);
+}
+
+class DailyExpenseDriftModelCompanion
+    extends UpdateCompanion<DailyExpenseDriftModelData> {
+  final Value<int> id;
+  final Value<double> amount;
+  final Value<String> category;
+  final Value<DateTime> date;
+  final Value<String?> notes;
+  final Value<String?> paymentMethod;
+  final Value<bool?> isRecurring;
+  final Value<String?> location;
+  final Value<String?> currency;
+  const DailyExpenseDriftModelCompanion({
+    this.id = const Value.absent(),
+    this.amount = const Value.absent(),
+    this.category = const Value.absent(),
+    this.date = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.paymentMethod = const Value.absent(),
+    this.isRecurring = const Value.absent(),
+    this.location = const Value.absent(),
+    this.currency = const Value.absent(),
+  });
+  DailyExpenseDriftModelCompanion.insert({
+    this.id = const Value.absent(),
+    required double amount,
+    required String category,
+    required DateTime date,
+    this.notes = const Value.absent(),
+    this.paymentMethod = const Value.absent(),
+    this.isRecurring = const Value.absent(),
+    this.location = const Value.absent(),
+    this.currency = const Value.absent(),
+  })  : amount = Value(amount),
+        category = Value(category),
+        date = Value(date);
+  static Insertable<DailyExpenseDriftModelData> custom({
+    Expression<int>? id,
+    Expression<double>? amount,
+    Expression<String>? category,
+    Expression<DateTime>? date,
+    Expression<String>? notes,
+    Expression<String>? paymentMethod,
+    Expression<bool>? isRecurring,
+    Expression<String>? location,
+    Expression<String>? currency,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (amount != null) 'amount': amount,
+      if (category != null) 'category': category,
+      if (date != null) 'date': date,
+      if (notes != null) 'notes': notes,
+      if (paymentMethod != null) 'payment_method': paymentMethod,
+      if (isRecurring != null) 'is_recurring': isRecurring,
+      if (location != null) 'location': location,
+      if (currency != null) 'currency': currency,
+    });
+  }
+
+  DailyExpenseDriftModelCompanion copyWith(
+      {Value<int>? id,
+      Value<double>? amount,
+      Value<String>? category,
+      Value<DateTime>? date,
+      Value<String?>? notes,
+      Value<String?>? paymentMethod,
+      Value<bool?>? isRecurring,
+      Value<String?>? location,
+      Value<String?>? currency}) {
+    return DailyExpenseDriftModelCompanion(
+      id: id ?? this.id,
+      amount: amount ?? this.amount,
+      category: category ?? this.category,
+      date: date ?? this.date,
+      notes: notes ?? this.notes,
+      paymentMethod: paymentMethod ?? this.paymentMethod,
+      isRecurring: isRecurring ?? this.isRecurring,
+      location: location ?? this.location,
+      currency: currency ?? this.currency,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (amount.present) {
+      map['amount'] = Variable<double>(amount.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (paymentMethod.present) {
+      map['payment_method'] = Variable<String>(paymentMethod.value);
+    }
+    if (isRecurring.present) {
+      map['is_recurring'] = Variable<bool>(isRecurring.value);
+    }
+    if (location.present) {
+      map['location'] = Variable<String>(location.value);
+    }
+    if (currency.present) {
+      map['currency'] = Variable<String>(currency.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DailyExpenseDriftModelCompanion(')
+          ..write('id: $id, ')
+          ..write('amount: $amount, ')
+          ..write('category: $category, ')
+          ..write('date: $date, ')
+          ..write('notes: $notes, ')
+          ..write('paymentMethod: $paymentMethod, ')
+          ..write('isRecurring: $isRecurring, ')
+          ..write('location: $location, ')
+          ..write('currency: $currency')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $BankOperationDriftModelTable extends BankOperationDriftModel
     with TableInfo<$BankOperationDriftModelTable, BankOperationDriftModelData> {
   @override
@@ -1010,6 +1499,8 @@ class BankOperationCategoryLinkCompanion
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
+  late final $DailyExpenseDriftModelTable dailyExpenseDriftModel =
+      $DailyExpenseDriftModelTable(this);
   late final $BankOperationDriftModelTable bankOperationDriftModel =
       $BankOperationDriftModelTable(this);
   late final $BankOperationCategoryModelDriftModelTable
@@ -1022,12 +1513,227 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
+        dailyExpenseDriftModel,
         bankOperationDriftModel,
         bankOperationCategoryModelDriftModel,
         bankOperationCategoryLink
       ];
 }
 
+typedef $$DailyExpenseDriftModelTableCreateCompanionBuilder
+    = DailyExpenseDriftModelCompanion Function({
+  Value<int> id,
+  required double amount,
+  required String category,
+  required DateTime date,
+  Value<String?> notes,
+  Value<String?> paymentMethod,
+  Value<bool?> isRecurring,
+  Value<String?> location,
+  Value<String?> currency,
+});
+typedef $$DailyExpenseDriftModelTableUpdateCompanionBuilder
+    = DailyExpenseDriftModelCompanion Function({
+  Value<int> id,
+  Value<double> amount,
+  Value<String> category,
+  Value<DateTime> date,
+  Value<String?> notes,
+  Value<String?> paymentMethod,
+  Value<bool?> isRecurring,
+  Value<String?> location,
+  Value<String?> currency,
+});
+
+class $$DailyExpenseDriftModelTableFilterComposer
+    extends FilterComposer<_$AppDatabase, $DailyExpenseDriftModelTable> {
+  $$DailyExpenseDriftModelTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<double> get amount => $state.composableBuilder(
+      column: $state.table.amount,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get category => $state.composableBuilder(
+      column: $state.table.category,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get notes => $state.composableBuilder(
+      column: $state.table.notes,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get paymentMethod => $state.composableBuilder(
+      column: $state.table.paymentMethod,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get isRecurring => $state.composableBuilder(
+      column: $state.table.isRecurring,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get location => $state.composableBuilder(
+      column: $state.table.location,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get currency => $state.composableBuilder(
+      column: $state.table.currency,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$DailyExpenseDriftModelTableOrderingComposer
+    extends OrderingComposer<_$AppDatabase, $DailyExpenseDriftModelTable> {
+  $$DailyExpenseDriftModelTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<double> get amount => $state.composableBuilder(
+      column: $state.table.amount,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get category => $state.composableBuilder(
+      column: $state.table.category,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get date => $state.composableBuilder(
+      column: $state.table.date,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get notes => $state.composableBuilder(
+      column: $state.table.notes,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get paymentMethod => $state.composableBuilder(
+      column: $state.table.paymentMethod,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get isRecurring => $state.composableBuilder(
+      column: $state.table.isRecurring,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get location => $state.composableBuilder(
+      column: $state.table.location,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get currency => $state.composableBuilder(
+      column: $state.table.currency,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+class $$DailyExpenseDriftModelTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $DailyExpenseDriftModelTable,
+    DailyExpenseDriftModelData,
+    $$DailyExpenseDriftModelTableFilterComposer,
+    $$DailyExpenseDriftModelTableOrderingComposer,
+    $$DailyExpenseDriftModelTableCreateCompanionBuilder,
+    $$DailyExpenseDriftModelTableUpdateCompanionBuilder,
+    (
+      DailyExpenseDriftModelData,
+      BaseReferences<_$AppDatabase, $DailyExpenseDriftModelTable,
+          DailyExpenseDriftModelData>
+    ),
+    DailyExpenseDriftModelData,
+    PrefetchHooks Function()> {
+  $$DailyExpenseDriftModelTableTableManager(
+      _$AppDatabase db, $DailyExpenseDriftModelTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$DailyExpenseDriftModelTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$DailyExpenseDriftModelTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<double> amount = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<DateTime> date = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<String?> paymentMethod = const Value.absent(),
+            Value<bool?> isRecurring = const Value.absent(),
+            Value<String?> location = const Value.absent(),
+            Value<String?> currency = const Value.absent(),
+          }) =>
+              DailyExpenseDriftModelCompanion(
+            id: id,
+            amount: amount,
+            category: category,
+            date: date,
+            notes: notes,
+            paymentMethod: paymentMethod,
+            isRecurring: isRecurring,
+            location: location,
+            currency: currency,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required double amount,
+            required String category,
+            required DateTime date,
+            Value<String?> notes = const Value.absent(),
+            Value<String?> paymentMethod = const Value.absent(),
+            Value<bool?> isRecurring = const Value.absent(),
+            Value<String?> location = const Value.absent(),
+            Value<String?> currency = const Value.absent(),
+          }) =>
+              DailyExpenseDriftModelCompanion.insert(
+            id: id,
+            amount: amount,
+            category: category,
+            date: date,
+            notes: notes,
+            paymentMethod: paymentMethod,
+            isRecurring: isRecurring,
+            location: location,
+            currency: currency,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$DailyExpenseDriftModelTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $DailyExpenseDriftModelTable,
+        DailyExpenseDriftModelData,
+        $$DailyExpenseDriftModelTableFilterComposer,
+        $$DailyExpenseDriftModelTableOrderingComposer,
+        $$DailyExpenseDriftModelTableCreateCompanionBuilder,
+        $$DailyExpenseDriftModelTableUpdateCompanionBuilder,
+        (
+          DailyExpenseDriftModelData,
+          BaseReferences<_$AppDatabase, $DailyExpenseDriftModelTable,
+              DailyExpenseDriftModelData>
+        ),
+        DailyExpenseDriftModelData,
+        PrefetchHooks Function()>;
 typedef $$BankOperationDriftModelTableCreateCompanionBuilder
     = BankOperationDriftModelCompanion Function({
   Value<int> id,
@@ -1783,6 +2489,9 @@ typedef $$BankOperationCategoryLinkTableProcessedTableManager
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
+  $$DailyExpenseDriftModelTableTableManager get dailyExpenseDriftModel =>
+      $$DailyExpenseDriftModelTableTableManager(
+          _db, _db.dailyExpenseDriftModel);
   $$BankOperationDriftModelTableTableManager get bankOperationDriftModel =>
       $$BankOperationDriftModelTableTableManager(
           _db, _db.bankOperationDriftModel);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kaspi_pdf_reader/core/screens/operation_detail_screen/operation_detail_controller.dart';
+import 'package:kaspi_pdf_reader/operation_detail_screen/operation_detail_controller.dart';
 import 'package:kaspi_pdf_reader/core/widgets/app_circular_progress_indicator.dart';
 import 'package:kaspi_pdf_reader/core/widgets/app_empty_data.dart';
 import 'package:kaspi_pdf_reader/core/widgets/bank_operation_list_tile.dart';
-import 'package:kaspi_pdf_reader/data/models/operation_groups_model/operation_groups_model.dart';
+import 'package:kaspi_pdf_reader/core/data/models/operation_groups_model/operation_groups_model.dart';
 import 'package:provider/provider.dart';
 
 class OperationDetailScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kaspi_pdf_reader/core/global_values/global_icons_map.dart';
 import 'package:kaspi_pdf_reader/core/utils/string_utils.dart';
-import 'package:kaspi_pdf_reader/data/models/operation_groups_model/operation_groups_model.dart';
+import 'package:kaspi_pdf_reader/core/data/models/operation_groups_model/operation_groups_model.dart';
 
 class OperationGroupWidget extends StatelessWidget {
   final OperationGroupsModel model;

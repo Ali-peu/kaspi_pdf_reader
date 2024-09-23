@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kaspi_pdf_reader/core/global_values/global_icons_map.dart';
-import 'package:kaspi_pdf_reader/core/screens/create_payment_screen/create_payment_screen.dart';
-import 'package:kaspi_pdf_reader/core/screens/pdf_download_screen/pdf_download_controller.dart';
-import 'package:kaspi_pdf_reader/core/screens/pdf_download_screen/pdf_download_screen.dart';
-import 'package:kaspi_pdf_reader/core/screens/sorting_operations_screen/sorting_operations_screen.dart';
 import 'package:kaspi_pdf_reader/core/widgets/app_primary_button.dart';
+import 'package:kaspi_pdf_reader/create_payment_screen/create_payment_screen.dart';
+import 'package:kaspi_pdf_reader/pdf_download_screen/pdf_download_controller.dart';
+import 'package:kaspi_pdf_reader/pdf_download_screen/pdf_download_screen.dart';
+import 'package:kaspi_pdf_reader/sorting_operations_screen/sorting_operations_screen.dart';
 import 'package:provider/provider.dart';
 
 class AppNavigation extends StatefulWidget {

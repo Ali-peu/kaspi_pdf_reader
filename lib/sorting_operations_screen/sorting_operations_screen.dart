@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:kaspi_pdf_reader/core/screens/operation_detail_screen/operation_detail_controller.dart';
-import 'package:kaspi_pdf_reader/core/screens/operation_detail_screen/operation_detail_screen.dart';
-import 'package:kaspi_pdf_reader/core/screens/pdf_download_screen/pdf_download_controller.dart';
-import 'package:kaspi_pdf_reader/core/screens/sorting_operations_screen/sorting_operations_controller.dart';
+import 'package:kaspi_pdf_reader/operation_detail_screen/operation_detail_controller.dart';
+import 'package:kaspi_pdf_reader/operation_detail_screen/operation_detail_screen.dart';
+import 'package:kaspi_pdf_reader/pdf_download_screen/pdf_download_controller.dart';
+import 'package:kaspi_pdf_reader/sorting_operations_screen/sorting_operations_controller.dart';
 import 'package:kaspi_pdf_reader/core/widgets/app_empty_data.dart';
 import 'package:kaspi_pdf_reader/core/widgets/operation_group_widget.dart';
-import 'package:kaspi_pdf_reader/data/database/drift_datebase.dart';
-import 'package:kaspi_pdf_reader/data/database/drift_datebase_example.dart';
-import 'package:kaspi_pdf_reader/data/models/operation_groups_model/operation_groups_model.dart';
+import 'package:kaspi_pdf_reader/core/data/database/drift_datebase.dart';
+import 'package:kaspi_pdf_reader/core/data/database/drift_datebase_example.dart';
+import 'package:kaspi_pdf_reader/core/data/models/operation_groups_model/operation_groups_model.dart';
 import 'package:provider/provider.dart';
 
 class SortingOperationsScreen extends StatefulWidget {

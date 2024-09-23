@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kaspi_pdf_reader/core/widgets/bank_operation_list_tile.dart';
-import 'package:kaspi_pdf_reader/data/models/bank_operation_model.dart';
+import 'package:kaspi_pdf_reader/core/data/models/bank_operation_model.dart';
 
 class BankOperationsGroupListTile extends StatelessWidget {
   const BankOperationsGroupListTile(

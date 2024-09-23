@@ -1,6 +1,6 @@
-import 'package:kaspi_pdf_reader/data/database/drift_datebase.dart';
-import 'package:kaspi_pdf_reader/data/database/drift_datebase_example.dart';
-import 'package:kaspi_pdf_reader/data/models/bank_operation_model.dart';
+import 'package:kaspi_pdf_reader/core/data/database/drift_datebase.dart';
+import 'package:kaspi_pdf_reader/core/data/database/drift_datebase_example.dart';
+import 'package:kaspi_pdf_reader/core/data/models/bank_operation_model.dart';
 
 class BankOperationRepo {
   final bankOperationDriftModelRepository =
@@ -50,5 +50,25 @@ class BankOperationRepo {
         .toList();
 
     return result ?? [];
+  }
+
+  Future<void> createBankOperationModel({
+    required String name,
+    required String iconID,
+    required double summ,
+    required String date,
+    required String comment,
+    required String typeOperation,
+    bool isPlus = false,
+  }) async {
+    await bankOperationDriftModelRepository.setBankOperationDriftModel(
+        BankOperationModel(
+                date: date,
+                summ: summ,
+                id: 0,
+                isPlus: isPlus,
+                typeOperation: typeOperation,
+                purpose: comment)
+            .toBankOperationDriftModelData());
   }
 }

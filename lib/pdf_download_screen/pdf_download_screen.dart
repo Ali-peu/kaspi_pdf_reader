@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kaspi_pdf_reader/core/screens/pdf_download_screen/pdf_download_controller.dart';
+import 'package:kaspi_pdf_reader/pdf_download_screen/pdf_download_controller.dart';
 import 'package:kaspi_pdf_reader/core/widgets/app_circular_progress_indicator.dart';
 import 'package:kaspi_pdf_reader/core/widgets/app_empty_data.dart';
 

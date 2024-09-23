@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:fast_csv/fast_csv_ex.dart' as fast_csv_ex;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:kaspi_pdf_reader/data/models/bank_operation_model.dart';
-import 'package:kaspi_pdf_reader/data/repo/bank_operation_repo.dart';
-import 'package:kaspi_pdf_reader/data/repo/document_cleaner_repositoryes/document_cleaner_repo.dart';
-import 'package:kaspi_pdf_reader/data/repo/operation_groups_repo.dart';
+import 'package:kaspi_pdf_reader/core/data/models/bank_operation_model.dart';
+import 'package:kaspi_pdf_reader/core/data/repo/bank_operation_repo.dart';
+import 'package:kaspi_pdf_reader/core/data/repo/document_cleaner_repositoryes/document_cleaner_repo.dart';
+import 'package:kaspi_pdf_reader/core/data/repo/operation_groups_repo.dart';
 
 class PdfDownloadController extends ChangeNotifier {
   bool isLoading = true;

@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:kaspi_pdf_reader/data/database/drift_datebase.dart';
+import 'package:kaspi_pdf_reader/core/data/database/drift_datebase.dart';
 
 class BankOperationModel {
   final String date;

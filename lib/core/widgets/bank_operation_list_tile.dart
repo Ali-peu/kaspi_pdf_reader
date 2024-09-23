@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kaspi_pdf_reader/data/models/bank_operation_model.dart';
+import 'package:kaspi_pdf_reader/core/data/models/bank_operation_model.dart';
 
 class BankOperationListTile extends StatelessWidget {
   final BankOperationModel bankOperationModel;

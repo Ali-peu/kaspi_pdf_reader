@@ -1,5 +1,5 @@
-import 'package:kaspi_pdf_reader/data/models/bank_operation_model.dart';
-import 'package:kaspi_pdf_reader/data/repo/document_cleaner_repositoryes/document_cleaner_repo.dart';
+import 'package:kaspi_pdf_reader/core/data/models/bank_operation_model.dart';
+import 'package:kaspi_pdf_reader/core/data/repo/document_cleaner_repositoryes/document_cleaner_repo.dart';
 
 class SCVCleanerRepo
     implements DocumentCleanerRepo<List<List<String>>, List<String>> {
